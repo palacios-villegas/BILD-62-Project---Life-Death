@@ -1,6 +1,3 @@
-Denmark, Live births by calendar year, age and birth cohort (Lexis triangles)
-Last modified: 23/05/2025
-Year   Age    Cohort           Total
 1916    12-        .            0.00
 1916    13      1903            0.03
 1916    13      1902            0.07
