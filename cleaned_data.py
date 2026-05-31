@@ -50,29 +50,30 @@ test = total_deaths[:5]
 #        counter = 0
 #        new_row = ''
 
-new_row = np.empty([5, 1])
-print(new_row)
-x = 1
-x = np.array([x, 1])
-print(x)
-# new_row = np.append(new_row, x, axis=0)
-print(new_row.shape)
+new_row = np.empty([0])
+print(new_row, new_row.shape)
 deaths_final = np.empty([0])
+print(deaths_final, deaths_final.shape)
+print('space')
 counter = 0
-# for x in test:
-#    if counter == 111:
-#        deaths_final = np.array(deaths_final, new_row, axis=0)
-#        new_row = np.empty([0])
-#        counter = 0
-#        x = np.array([x])
-#        # print(x)
-#        new_row = np.append(new_row, x, axis=0)
-#        counter = counter + 1
-#   else:
-#        x = np.array([x])
-#        print(x)
-#        new_row = np.append(new_row, x, axis=0)
-#        counter = counter + 1
+for x in test:
+    if counter == 111:
+        new_row = new_row[:, np.newaxis]
+        deaths_final = np.array(deaths_final, new_row, axis=0)
+        new_row = np.empty([0])
+        counter = 0
+        x = np.array([x])
+        print(x, x.shape)
+        # print(x)
+        new_row = np.append(new_row, x, axis=0)
+        print(new_row, new_row.shape)
+        counter = counter + 1
+    else:
+        x = np.array([x])
+        print('x', x, x.shape)
+        new_row = np.append(new_row, x, axis=0)
+        print('new_row', new_row, new_row.shape)
+        counter = counter + 1
 
 
 # print(deaths_final)
