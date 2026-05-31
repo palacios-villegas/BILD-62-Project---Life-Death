@@ -29,17 +29,48 @@ death_data = np.array(raw_death_file)
 # female_death = death_data[:, 0:3]
 # print(total_death)
 total_deaths = death_data[:, 4]
-new_row = np.zeros((0, 0))
-deaths_final = np.zeros((0, 0))
+test = total_deaths[:5]
+# deaths_final = np.zeros((191, 110))
+# print(deaths_final)
+
+
+# new_row = np.zeros((0, 0))
+# counter = 0
+# deaths_final = np.zeros((0))
+# print(new_row.shape)
+# x = total_deaths[0]
+# print(np.array([x]))
+
+# for x in total_deaths:
+#    x = np.array([x])
+#   new_row = np.append(new_row, x, axis=0)
+#    counter = counter + 1
+#    if counter == 111:
+#        deaths_final = np.append(deaths_final, new_row, axis=0)
+#        counter = 0
+#        new_row = ''
+
+new_row = np.empty([0])
+print(new_row.shape)
+deaths_final = np.empty([0])
 counter = 0
-
-
-def array_convert(data):
-    for x in data:
-        new_row = new_row + x
+for x in test:
+    if counter == 111:
+        deaths_final = np.append(deaths_final, new_row, axis=0)
+        new_row = np.empty([0])
+        counter = 0
+        x = np.array([x])
+        # print(x)
+        new_row = np.append(new_row, x, axis=0)
         counter = counter + 1
-        if counter == 111:
-            deaths_final = np.append(deaths_final, new_row, axis=0)
-            counter = 0
-            new_row = np.zeros((0, 0))
-    print(deaths_final)
+    else:
+        x = np.array([x, 0])
+        print(x)
+        new_row = np.append(new_row, x, axis=0)
+        counter = counter + 1
+
+
+print(deaths_final)
+print('space')
+print(new_row.shape)
+print(deaths_final.shape)
