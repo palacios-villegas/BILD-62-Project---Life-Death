@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 file_death_contents = open("Deaths_1x1.txt").read()
 file_death_contents = file_death_contents.replace('+', '')
+print(file_death_contents)
 file_pop_contents = open('Population.txt').read()
 file_pop_contents = file_pop_contents.replace('+', '')
 file_pop_contents = file_pop_contents.replace('-', '')
@@ -58,7 +59,6 @@ def make_array(float_data, num_columns):
 
 
 # save death & pop data in an array that is easily indexed
-# year on axis 0, age on axis 1
 total_death_array = make_array(total_deaths, 111)
 female_death_array = make_array(female_deaths, 111)
 male_death_array = make_array(male_deaths, 111)
@@ -66,5 +66,3 @@ male_death_array = make_array(male_deaths, 111)
 total_pop_array = make_array(total_pop, 111)
 female_pop_array = make_array(female_pop, 111)
 male_pop_array = make_array(male_pop, 111)
-
-print(total_death_array.shape)  # data spans 1835-2025

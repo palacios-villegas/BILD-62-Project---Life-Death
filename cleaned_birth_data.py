@@ -1,4 +1,4 @@
-import cleaned_popdeath_data
+from cleaned_pop_death_data import make_array
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -55,4 +55,9 @@ for index, births in enumerate(birth_column):
         sum_births = sum_births[np.newaxis]
         # print(sum_births)
         added_birth = np.append(added_birth, sum_births, axis=0)
-        # print(added_birth)
+
+# gives array with birth year of child on axis 0, age of mother on axis 1
+# if you need array with birth year of child on axis 0 and birth year of mother on axis 1,
+# i can create a new array, the data will be slightly differet
+age_birth_array = make_array(added_birth, 44)
+print(age_birth_array.shape)  # this data spans 1916-2024
