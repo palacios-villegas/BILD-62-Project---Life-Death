@@ -9,18 +9,12 @@ file_pop_contents = open('Population.txt').read()
 file_pop_contents = file_pop_contents.replace('+', '')
 file_pop_contents = file_pop_contents.replace('-', '')
 
-file_birth_contents = open('DNKbirthsTR.txt').read()
-file_birth_contents = file_birth_contents.replace('+', '')
-file_birth_contents = file_birth_contents.replace('-', '')
-file_birth_contents = file_birth_contents.replace(' . ', '0.00')
 # cleans the data by removing special characters so it can be converted into float in the next code block
 
 with open("Deaths_1x1.txt", "w", encoding="utf-8") as file:  # converts files from str to float
     file.write(file_death_contents)
 with open("Population.txt", "w", encoding="utf-8") as file:
     file.write(file_pop_contents)
-with open("DNKbirthsTR.txt", "w", encoding="utf-8") as file:
-    file.write(file_birth_contents)
 
 death_data = np.array(np.loadtxt(fname='Deaths_1x1.txt'))
 total_deaths = death_data[:, 4]  # 1D arrays with 21201 columns
@@ -31,9 +25,6 @@ pop_data = np.array(np.loadtxt(fname='Population.txt'))
 total_pop = pop_data[:, 4]
 female_pop = pop_data[:, 2]
 male_pop = pop_data[:, 3]
-
-birth_data = np.array(np.loadtxt(fname='DNKbirthsTR.txt'))
-total_births = birth_data[:, 3]
 
 
 def make_array(float_data, num_columns):
