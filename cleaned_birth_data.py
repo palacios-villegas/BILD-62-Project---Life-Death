@@ -1,3 +1,4 @@
+import cleaned_popdeath_data
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -17,11 +18,41 @@ total_births = birth_data[:, 3]
 total_births = total_births[:, np.newaxis]
 test = birth_data[:90, :]
 # print(test)
-print(total_births.shape)
+# print(total_births.shape)
 
 c = 0
 while c < 9288:
     birth_data[c, 2] = float(birth_data[c+1, 2])
     birth_data[c+85, 2] = float(birth_data[c+84, 2])
     c = c + 86
-print(birth_data[:90, :])
+# print(birth_data[:90, :])
+
+
+birth_column = birth_data[:, 3]
+test = birth_column[:40]
+
+# def age_sort(data):
+added_birth = np.empty([0])
+border = np.empty([0])
+# print(added_birth, added_birth.shape)
+array_data = np.empty([0, 4])
+# print(array_data, array_data.shape)
+# print('space')
+
+for index, births in enumerate(birth_column):
+    if birth_data[index, 1] == 12 or birth_data[index, 1] == 55:
+        births = np.array(births)
+        # print('border', births)
+        births = births[np.newaxis]
+        # print('border', births)
+        border = np.append(border, births, axis=0)
+        # print('border', border)
+        added_birth = np.append(added_birth, border, axis=0)
+        border = np.empty([0])
+
+    elif birth_data[index, 1] == birth_data[index+1, 1]:
+        sum_births = np.array(birth_data[index, 3] + birth_data[index+1, 3])
+        sum_births = sum_births[np.newaxis]
+        # print(sum_births)
+        added_birth = np.append(added_birth, sum_births, axis=0)
+        # print(added_birth)
