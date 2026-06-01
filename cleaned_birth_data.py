@@ -59,5 +59,7 @@ for index, births in enumerate(birth_column):
 # gives array with birth year of child on axis 0, age of mother on axis 1
 # if you need array with birth year of child on axis 0 and birth year of mother on axis 1,
 # i can create a new array, the data will be slightly differet
+
+
 age_birth_array = make_array(added_birth, 44)
-print(age_birth_array.shape)  # this data spans 1916-2024
+print(age_birth_array)

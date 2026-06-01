@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 file_death_contents = open("Deaths_1x1.txt").read()
 file_death_contents = file_death_contents.replace('+', '')
+
 file_pop_contents = open('Population.txt').read()
 file_pop_contents = file_pop_contents.replace('+', '')
 file_pop_contents = file_pop_contents.replace('-', '')
@@ -67,4 +68,4 @@ total_pop_array = make_array(total_pop, 111)
 female_pop_array = make_array(female_pop, 111)
 male_pop_array = make_array(male_pop, 111)
 
-print(total_death_array.shape)  # data spans 1835-2025
+# print(total_death_array)  # data spans 1835-2025
