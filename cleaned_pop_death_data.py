@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+# cleans the data by removing special characters that
+# cannot be converted into float, rewrites the original file
 file_death_contents = open("Deaths_1x1.txt").read()
 file_death_contents = file_death_contents.replace('+', '')
 
@@ -9,16 +12,19 @@ file_pop_contents = open('Population.txt').read()
 file_pop_contents = file_pop_contents.replace('+', '')
 file_pop_contents = file_pop_contents.replace('-', '')
 
-# cleans the data by removing special characters
-
-with open("Deaths_1x1.txt", "w", encoding="utf-8") as file:  # re-writes the files
+with open("Deaths_1x1.txt", "w", encoding="utf-8") as file:
     file.write(file_death_contents)
 with open("Population.txt", "w", encoding="utf-8") as file:
     file.write(file_pop_contents)
 
-# creates an array out of the cleaned file
+
+# creates an array out of the edited file
+# stores as array with 4 columns and lots of rows
+# indexed to isolate only the data we care about!
+# the array is 1D, and the data cycles from year to year
+# with no clear break
 death_data = np.array(np.loadtxt(fname='Deaths_1x1.txt'))
-total_deaths = death_data[:, 4]  # 1D arrays with 21201 columns
+total_deaths = death_data[:, 4]
 female_deaths = death_data[:, 2]
 male_deaths = death_data[:, 3]
 
@@ -28,38 +34,36 @@ female_pop = pop_data[:, 2]
 male_pop = pop_data[:, 3]
 
 
-def make_array(float_data, num_columns):
-    '''will turn 1D array into 2D array with year on axis=0 and age on axis=1'''
+def make_array(array_1D, num_columns):
+    '''will turn 1D array into 2D array with year on axis=0 and age on axis=1
+
+    array_1D is the 1D array with all the data. 
+
+    num_columns is the number of age groups that are placed on the x-axis
+    of the new array. Example: num_columns = 111, means x axis ranges from
+    age 0 to age 110.'''
     new_row = np.empty([0])
-    # print(new_row, new_row.shape)
     array_data = np.empty([0, num_columns])
-    # print(array_data, array_data.shape)
-    # print('space')
     counter = 0
-    for x in float_data:
+    for x in array_1D:
         if counter == num_columns:
-            new_row = new_row[np.newaxis, :]
-            # print('new_ row if', new_row.shape)
+            new_row = new_row[np.newaxis, :]  # adds dimension to new_row
             array_data = np.append(array_data, new_row, axis=0)
-            # print('array_data if', array_data, array_data.shape)
             new_row = np.empty([0])
             counter = 0
             x = np.array([x])
-            # print('x if', x, x.shape)
             new_row = np.append(new_row, x, axis=0)
-            # print('new_row if', new_row, new_row.shape)
             counter = counter + 1
         else:
             x = np.array([x])
-            # print('x', x, x.shape)
             new_row = np.append(new_row, x, axis=0)
-            # print('new_row', new_row, new_row.shape)
             counter = counter + 1
     return (array_data)
 
 
 # save death & pop data in an array that is easily indexed
 # year on axis 0, age on axis 1
+# data spans 1835-2025
 total_death_array = make_array(total_deaths, 111)
 female_death_array = make_array(female_deaths, 111)
 male_death_array = make_array(male_deaths, 111)
@@ -67,5 +71,3 @@ male_death_array = make_array(male_deaths, 111)
 total_pop_array = make_array(total_pop, 111)
 female_pop_array = make_array(female_pop, 111)
 male_pop_array = make_array(male_pop, 111)
-
-# print(total_death_array)  # data spans 1835-2025
