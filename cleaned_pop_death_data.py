@@ -1,7 +1,13 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
+# Print the folder Python is currently looking at
+print("Current Working Directory:", os.getcwd())
+
+# List all files Python sees in that specific folder
+print("Files visible here:", os.listdir("."))
 
 # cleans the data by removing special characters that
 # cannot be converted into float, rewrites the original file
@@ -32,16 +38,24 @@ pop_data = np.array(np.loadtxt(fname='Population.txt'))
 total_pop = pop_data[:, 4]
 female_pop = pop_data[:, 2]
 male_pop = pop_data[:, 3]
+# document!!
 
 
 def make_array(array_1D, num_columns):
-    '''will turn 1D array into 2D array with year on axis=0 and age on axis=1
+    """
+    Turns 1D array into 2D array with year on axis = 0 and age on axis = 1
 
-    array_1D is the 1D array with all the data. 
+    Parameters
+    ----------
+    array_1D: array
+        1D array containing all the data: array
+    num_columns : integer
+        Number of age groups that are placed on the x-axis of the new array
 
-    num_columns is the number of age groups that are placed on the x-axis
-    of the new array. Example: num_columns = 111, means x axis ranges from
-    age 0 to age 110.'''
+    Returns
+    -------
+    2D array
+    """
     new_row = np.empty([0])
     array_data = np.empty([0, num_columns])
     counter = 0

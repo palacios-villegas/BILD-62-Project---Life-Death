@@ -1,7 +1,8 @@
-from cleaned_pop_death_data import make_array
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from cleaned_pop_death_data import make_array
 
 file_birth_contents = open("DNKbirthsTR_01.txt").read()
 file_birth_contents = file_birth_contents.replace("+", " ")
