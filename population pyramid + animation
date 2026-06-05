@@ -1,0 +1,168 @@
+def get_population_percent(year, start_year, male_array, female_array, total_array):
+    """
+    Calculates male and female population percentages for a selected year.
+
+    Parameters:
+        year (int): Year to extract from the population arrays.
+        start_year (int): First year represented in the arrays.
+        male_array (np.ndarray): 2D array of male population counts by year and age.
+        female_array (np.ndarray): 2D array of female population counts by year and age.
+        total_array (np.ndarray): 2D array of total population counts by year and age.
+
+    Returns:
+        tuple: male_pct and female_pct arrays containing percent of total population by age.
+    """
+    year_index = year - start_year
+
+    assert 0 <= year_index < male_array.shape[0], "Year is outside the available data range."
+
+    male_year = male_array[year_index]
+    female_year = female_array[year_index]
+    total_year = total_array[year_index]
+
+    total_population = np.sum(total_year)
+
+    assert total_population > 0, "Total population must be greater than zero."
+
+    male_pct = 100 * male_year / total_population
+    female_pct = 100 * female_year / total_population
+
+    return male_pct, female_pct
+    
+def plot_population_pyramid(year, start_year, male_array, female_array, total_array, x_limit):
+    """
+    Plots a population pyramid for Denmark for a selected year.
+
+    Parameters:
+        year (int): Year to plot.
+        start_year (int): First year represented in the arrays.
+        male_array (np.ndarray): 2D array of male population counts by year and age.
+        female_array (np.ndarray): 2D array of female population counts by year and age.
+        total_array (np.ndarray): 2D array of total population counts by year and age.
+        x_limit (float): Shared x-axis limit for visual comparison.
+
+    Returns:
+        None
+    """
+    ages = np.arange(male_array.shape[1])
+
+    male_pct, female_pct = get_population_percent(
+        year, start_year, male_array, female_array, total_array
+    )
+
+    plt.figure(figsize=(10, 12))
+
+    plt.barh(ages, female_pct, label="Female")
+    plt.barh(ages, male_pct, left=-male_pct, label="Male")
+
+    plt.axvline(0, color="black")
+
+    plt.xlim(-1.5, 1.5)
+    plt.ylim(0, 110)
+
+    plt.xlabel("Percent of Total Population")
+    plt.ylabel("Age")
+    plt.title(f"Denmark Population Pyramid ({year})")
+
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+start_year = 1835
+comparison_years = [1950, 2025]
+
+x_limit = calculate_axis_limit(
+    comparison_years,
+    start_year,
+    male_pop_array,
+    female_pop_array,
+    total_pop_array
+)
+
+plot_population_pyramid(
+    1950,
+    start_year,
+    male_pop_array,
+    female_pop_array,
+    total_pop_array,
+    x_limit
+)
+
+plot_population_pyramid(
+    2025,
+    start_year,
+    male_pop_array,
+    female_pop_array,
+    total_pop_array,
+    x_limit
+)
+
+import matplotlib.animation as animation
+
+def save_population_pyramid_animation(years, start_year, male_array, female_array, total_array, filename):
+    """
+    Creates and saves an animated population pyramid across multiple years.
+
+    Parameters:
+        years (list or np.ndarray): Years to include in the animation.
+        start_year (int): First year represented in the arrays.
+        male_array (np.ndarray): 2D array of male population counts by year and age.
+        female_array (np.ndarray): 2D array of female population counts by year and age.
+        total_array (np.ndarray): 2D array of total population counts by year and age.
+        filename (str): Name of the GIF file to save.
+
+    Returns:
+        None
+    """
+    ages = np.arange(male_array.shape[1])
+    x_limit = calculate_axis_limit(years, start_year, male_array, female_array, total_array)
+
+    fig, ax = plt.subplots(figsize=(8, 10))
+
+    def update(year):
+        ax.clear()
+
+        male_pct, female_pct = get_population_percent(
+            year, start_year, male_array, female_array, total_array
+        )
+
+        ax.barh(ages, female_pct, label="Female")
+        ax.barh(ages, male_pct, left=-male_pct, label="Male")
+
+        ax.axvline(0, color="black")
+        ax.set_xlim(-x_limit, x_limit)
+        ax.set_ylim(0, ages[-1])
+
+        ax.set_xlabel("Percent of Total Population")
+        ax.set_ylabel("Age")
+        ax.set_title(f"Denmark Population Pyramid, {year}")
+        ax.legend(loc="upper right")
+
+    anim = animation.FuncAnimation(
+        fig,
+        update,
+        frames=years,
+        interval=300,
+        repeat=True
+    )
+
+    anim.save(filename, writer="pillow", fps=3)
+    plt.close(fig)
+
+animation_years = np.arange(1835, 2026, 5)
+
+if animation_years[-1] != 2025:
+    animation_years = np.append(animation_years, 2025)
+
+save_population_pyramid_animation(
+    animation_years,
+    1835,
+    male_pop_array,
+    female_pop_array,
+    total_pop_array,
+    "denmark_population_pyramid.gif"
+)
+
+from IPython.display import Image
+
+Image(filename="denmark_population_pyramid.gif")
