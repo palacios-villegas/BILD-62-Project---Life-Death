@@ -6,8 +6,12 @@ from cleaned_pop_death_data import total_death_array
 years = np.arange(1916, 2025)  # Years of birth present in the dataset
 ages = np.arange(12, 56)  # Age of mothers present in the dataset
 
+age_mask = (ages >= 15) & (ages <= 49)
+ages = ages[age_mask]
+
 # Transposes data to put birth years on x axis and ages in y axis in the graph
 transposed_birth_data = age_birth_array.T
+transposed_birth_data = transposed_birth_data[age_mask, :]
 
 # Convert birth counts to percentages within each year.
 birth_percent_data = transposed_birth_data / \
@@ -55,10 +59,10 @@ plot_heatmap(birth_percent_data, years, ages)
 
 
 # I tried to make a scatterplot function in class, but doesn't work - Daniel
-def plot_scatter(birth_data):
+def plot_scatter(birth_percent_data):
     plt.figure(figsize=(10, 5))
 
-    plt.scatter(birth_data)
+    plt.scatter(birth_percent_data)
 
     plt.xlabel('Birth Year of Child')
     plt.ylabel('Age of Mother')
