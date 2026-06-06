@@ -1,3 +1,10 @@
+from IPython.display import Image
+import matplotlib.animation as animation
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
 def get_population_percent(year, start_year, male_array, female_array, total_array):
     """
     Calculates male and female population percentages for a selected year.
@@ -28,7 +35,8 @@ def get_population_percent(year, start_year, male_array, female_array, total_arr
     female_pct = 100 * female_year / total_population
 
     return male_pct, female_pct
-    
+
+
 def plot_population_pyramid(year, start_year, male_array, female_array, total_array, x_limit):
     """
     Plots a population pyramid for Denmark for a selected year.
@@ -68,6 +76,7 @@ def plot_population_pyramid(year, start_year, male_array, female_array, total_ar
     plt.tight_layout()
     plt.show()
 
+
 start_year = 1835
 comparison_years = [1950, 2025]
 
@@ -97,7 +106,6 @@ plot_population_pyramid(
     x_limit
 )
 
-import matplotlib.animation as animation
 
 def save_population_pyramid_animation(years, start_year, male_array, female_array, total_array, filename):
     """
@@ -115,7 +123,8 @@ def save_population_pyramid_animation(years, start_year, male_array, female_arra
         None
     """
     ages = np.arange(male_array.shape[1])
-    x_limit = calculate_axis_limit(years, start_year, male_array, female_array, total_array)
+    x_limit = calculate_axis_limit(
+        years, start_year, male_array, female_array, total_array)
 
     fig, ax = plt.subplots(figsize=(8, 10))
 
@@ -149,6 +158,7 @@ def save_population_pyramid_animation(years, start_year, male_array, female_arra
     anim.save(filename, writer="pillow", fps=3)
     plt.close(fig)
 
+
 animation_years = np.arange(1835, 2026, 5)
 
 if animation_years[-1] != 2025:
@@ -163,6 +173,5 @@ save_population_pyramid_animation(
     "denmark_population_pyramid.gif"
 )
 
-from IPython.display import Image
 
 Image(filename="denmark_population_pyramid.gif")

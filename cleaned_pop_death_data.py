@@ -30,6 +30,7 @@ with open("Population.txt", "w", encoding="utf-8") as file:
 # the array is 1D, and the data cycles from year to year
 # with no clear break
 death_data = np.array(np.loadtxt(fname='Deaths_1x1.txt'))
+# 4 refers to 4th column that holds the total death data
 total_deaths = death_data[:, 4]
 female_deaths = death_data[:, 2]
 male_deaths = death_data[:, 3]
@@ -48,7 +49,7 @@ def make_array(array_1D, num_columns):
     Parameters
     ----------
     array_1D: array
-        1D array containing all the data: array
+        1D array containing all the data
     num_columns : integer
         Number of age groups that are placed on the x-axis of the new array
 
