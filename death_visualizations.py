@@ -83,12 +83,15 @@ plot_heatmap(tot_death_percent, title='Total Population')
 plot_heatmap(ca_tot_death_percent, y_axis=np.arange(
     0, 3), ages=np.arange(-1, 3, 1), title='Infants')
 plot_heatmap(ci_tot_death_percent, title='Adults')
-plot_heatmap(ci_m_death_percent, title='Adult Males')
-plot_heatmap(ci_f_death_percent, title='Adult Females')
-plot_heatmap(ca_m_death_percent, y_axis=np.arange(
-    0, 3), ages=np.arange(-1, 3, 1), title='Infant Males')
-plot_heatmap(ca_f_death_percent, y_axis=np.arange(
-    0, 3), ages=np.arange(-1, 3, 1), title='Infant Females')
+# plot_heatmap(ci_m_death_percent, title='Adult Males')
+# plot_heatmap(ci_f_death_percent, title='Adult Females')
+# plot_heatmap(ca_m_death_percent, y_axis=np.arange(
+#    0, 3), ages=np.arange(-1, 3, 1), title='Infant Males')
+# plot_heatmap(ca_f_death_percent, y_axis=np.arange(
+#    0, 3), ages=np.arange(-1, 3, 1), title='Infant Females')
+
+
+# better visualization through sex difference than sex alone
 plot_heatmap(ci_sex_difference_death_percent, title='Adult Sex Difference')
 plot_heatmap(ca_sex_difference_death_percent, y_axis=np.arange(
     0, 3), ages=np.arange(-1, 3, 1), title='Infant Sex Difference')
