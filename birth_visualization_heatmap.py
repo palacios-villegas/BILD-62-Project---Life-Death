@@ -20,7 +20,7 @@ birth_percent_data = transposed_birth_data / \
     transposed_birth_data.sum(axis=0) * 100
 
 
-def plot_heatmap(birth_percent_data, years, filtered_ages):
+def plot_births_heatmap(birth_percent_data, years, filtered_ages):
     """
     Plots a heatmap showing the distribution of births by mother's age and child birth year.
 
