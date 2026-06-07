@@ -72,6 +72,9 @@ def make_array(array_1D, num_columns):
             x = np.array([x])
             new_row = np.append(new_row, x, axis=0)
             counter = counter + 1
+    if counter == num_columns:
+        new_row = new_row[np.newaxis, :]
+        array_data = np.append(array_data, new_row, axis=0)
     return (array_data)
 
 

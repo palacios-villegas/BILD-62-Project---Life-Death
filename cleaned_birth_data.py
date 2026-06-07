@@ -64,3 +64,4 @@ for index, births in enumerate(birth_column):
 
 age_birth_array = make_array(added_birth, 44)
 print(age_birth_array)
+print(age_birth_array.shape)

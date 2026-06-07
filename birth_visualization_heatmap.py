@@ -6,7 +6,7 @@ years = np.arange(1916, 2025)  # Years of birth present in the dataset
 ages = np.arange(12, 56)  # Age of mothers present in the dataset
 
 age_mask = (ages >= 15) & (ages <= 49)
-ages = ages[age_mask]
+filtered_ages = ages[age_mask]
 # Filtered ages from 15 to 49
 # Heatmap was completely dark outside of that range
 # This filter better focuses on the clear trend
@@ -20,7 +20,7 @@ birth_percent_data = transposed_birth_data / \
     transposed_birth_data.sum(axis=0) * 100
 
 
-def plot_heatmap(birth_percent_data, years, ages):
+def plot_heatmap(birth_percent_data, years, filtered_ages):
     """
     Plots a heatmap showing the distribution of births by mother's age and child birth year.
 
@@ -30,8 +30,8 @@ def plot_heatmap(birth_percent_data, years, ages):
         2D array containing the percentage of births for each mother age and year.
     years : array
         Array containing the birth years of children shown on the x-axis.
-    ages : array
-        Array containing the mother ages shown on the y-axis.
+    filtered_ages : array
+        Array containing the filtered mother ages shown on the y-axis.
 
     Returns
     -------
@@ -44,7 +44,7 @@ def plot_heatmap(birth_percent_data, years, ages):
         birth_percent_data,
         aspect='auto',
         origin='lower',
-        extent=[years[0], years[-1], ages[0], ages[-1]]
+        extent=[years[0], years[-1], filtered_ages[0], filtered_ages[-1]]
     )
 
     plt.colorbar(label='Births (%)')
@@ -57,4 +57,4 @@ def plot_heatmap(birth_percent_data, years, ages):
     plt.show()
 
 
-plot_heatmap(birth_percent_data, years, ages)
+plot_heatmap(birth_percent_data, years, filtered_ages)
