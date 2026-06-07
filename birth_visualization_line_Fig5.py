@@ -29,7 +29,8 @@ def calculate_average_mother_age(filtered_birth_counts, filtered_ages):
     average_mother_age : array
         Array containing the average age of mother ordered for each child birth year
     """
-    weighted_age_sum = np.zeros(filtered_birth_counts.shape[0])
+    
+    weighted_age_sum = np.zeros(filtered_birth_counts.shape[0])   
 
     for idx, age in enumerate(filtered_ages):
         births_at_age = filtered_birth_counts[:, idx]
