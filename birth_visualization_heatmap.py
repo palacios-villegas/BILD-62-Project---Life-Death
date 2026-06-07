@@ -5,11 +5,11 @@ from cleaned_birth_data import age_birth_array
 years = np.arange(1916, 2025)  # Years of birth present in the dataset
 ages = np.arange(12, 56)  # Age of mothers present in the dataset
 
-age_mask = (ages >= 15) & (ages <= 49)
-filtered_ages = ages[age_mask]
 # Filtered ages from 15 to 49
 # Heatmap was completely dark outside of that range
 # This filter better focuses on the clear trend
+age_mask = (ages >= 15) & (ages <= 49)
+filtered_ages = ages[age_mask]
 
 # Transposes data to put birth years on x axis and ages in y axis in the graph
 transposed_birth_data = age_birth_array.T
