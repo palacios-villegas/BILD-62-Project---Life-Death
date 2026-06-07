@@ -51,7 +51,7 @@ def plot_births_heatmap(birth_percent_data, years, filtered_ages):
     plt.ylabel('Age of Mother')
     plt.xticks(np.arange(1920, 2025, 20))
     plt.yticks(np.arange(15, 50, 5))
-    plt.title("Distribution of Births by Mother's Age and Child Birth Year")
+    plt.title("Distribution of Births by Mother's Age and Child Birth Year in Denmark")
     plt.tight_layout()
     plt.show()
 

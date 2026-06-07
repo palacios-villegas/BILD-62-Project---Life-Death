@@ -65,7 +65,7 @@ def plot_average_mother_age(years, average_mother_age):
     plt.xlabel('Birth Year of Child')
     plt.ylabel('Average Age of Mother')
     plt.xticks(np.arange(1920, 2025, 20))
-    plt.title("Average Mother's Age by Child Birth Year")
+    plt.title("Average Mother's Age by Child Birth Year in Denmark")
     plt.tight_layout()
     plt.show()
 
