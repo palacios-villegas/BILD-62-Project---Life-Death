@@ -16,8 +16,7 @@ transposed_birth_data = age_birth_array.T
 transposed_birth_data = transposed_birth_data[age_mask, :]
 
 # Convert birth counts to percentages within each year.
-birth_percent_data = transposed_birth_data / \
-    transposed_birth_data.sum(axis=0) * 100
+birth_percent_data = transposed_birth_data / transposed_birth_data.sum(axis=0) * 100
 
 
 def plot_births_heatmap(birth_percent_data, years, filtered_ages):
