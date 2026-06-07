@@ -78,34 +78,19 @@ def plot_population_pyramid(year, start_year, male_array, female_array, total_ar
 
 
 start_year = 1835
-comparison_years = [1950, 2025]
+fig7_years = [1835, 1950, 2025]  # bottom-heavy, more rectangular, upper-heavy
 
-x_limit = calculate_axis_limit(
-    comparison_years,
-    start_year,
-    male_pop_array,
-    female_pop_array,
-    total_pop_array
-)
+for year in fig7_years:
+    plot_population_pyramid(
+        year,
+        start_year,
+        male_pop_array,
+        female_pop_array,
+        total_pop_array,
+        100000 # Use 100,000 as a common x-axis limit since the maximum population is approximately 92,938.
+    )
 
-plot_population_pyramid(
-    1950,
-    start_year,
-    male_pop_array,
-    female_pop_array,
-    total_pop_array,
-    x_limit
-)
-
-plot_population_pyramid(
-    2025,
-    start_year,
-    male_pop_array,
-    female_pop_array,
-    total_pop_array,
-    x_limit
-)
-
+import matplotlib.animation as animation
 
 def save_population_pyramid_animation(years, start_year, male_array, female_array, total_array, filename):
     """
@@ -123,8 +108,7 @@ def save_population_pyramid_animation(years, start_year, male_array, female_arra
         None
     """
     ages = np.arange(male_array.shape[1])
-    x_limit = calculate_axis_limit(
-        years, start_year, male_array, female_array, total_array)
+    x_limit = 100000 # Use 100,000 as a common x-axis limit since the maximum population is approximately 92,938.
 
     fig, ax = plt.subplots(figsize=(8, 10))
 
@@ -173,5 +157,7 @@ save_population_pyramid_animation(
     "denmark_population_pyramid.gif"
 )
 
+
+from IPython.display import Image
 
 Image(filename="denmark_population_pyramid.gif")
