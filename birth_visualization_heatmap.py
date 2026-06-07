@@ -57,4 +57,4 @@ def plot_births_heatmap(birth_percent_data, years, filtered_ages):
     plt.show()
 
 
-plot_heatmap(birth_percent_data, years, filtered_ages)
+plot_births_heatmap(birth_percent_data, years, filtered_ages)
