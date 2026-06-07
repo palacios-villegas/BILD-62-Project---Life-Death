@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import os
 
 # Print the folder Python is currently looking at
-print("Current Working Directory:", os.getcwd())
+# print("Current Working Directory:", os.getcwd())
 
 # List all files Python sees in that specific folder
-print("Files visible here:", os.listdir("."))
+# print("Files visible here:", os.listdir("."))
 
 # cleans the data by removing special characters that
 # cannot be converted into float, rewrites the original file
@@ -62,7 +62,7 @@ def make_array(array_1D, num_columns):
     counter = 0
     for x in array_1D:
         if counter == num_columns:
-            new_row = new_row[np.newaxis, :]  # adds dimension to new_row
+            new_row = new_row[np.newaxis, :]
             array_data = np.append(array_data, new_row, axis=0)
             new_row = np.empty([0])
             counter = 0
@@ -89,3 +89,5 @@ male_death_array = make_array(male_deaths, 111)
 total_pop_array = make_array(total_pop, 111)
 female_pop_array = make_array(female_pop, 111)
 male_pop_array = make_array(male_pop, 111)
+
+print(total_death_array.shape)

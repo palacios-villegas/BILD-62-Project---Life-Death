@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from cleaned_pop_death_data import total_death_array, male_death_array, female_death_array
 
-age = np.arange(0, 110)
-year = np.arange(1835, 2025)
+age = np.arange(0, 111)
+year = np.arange(1835, 2026)
 transposed_tot_death = total_death_array.T
 transposed_m_death = male_death_array.T
 transposed_f_death = female_death_array.T
@@ -66,32 +66,58 @@ def censor_data(uncensored_data):
 
 
 ci_tot_death_percent, ca_tot_death_percent = censor_data(
-    tot_death_percent)  # ci -> censored infants
-ci_m_death_percent, ca_m_death_percent = censor_data(
-    m_death_percent)  # ca -> censored adults
-ci_f_death_percent, ca_f_death_percent = censor_data(f_death_percent)
+    tot_death_percent)  # ci -> censored infants, ca -> censored adults
+
 
 ci_mtot_death_percent, ca_mtot_death_percent = censor_data(
     mtot_death_percent)
 ci_ftot_death_percent, ca_ftot_death_percent = censor_data(ftot_death_percent)
 
+
 ci_sex_difference_death_percent = ci_mtot_death_percent - ci_ftot_death_percent
 ca_sex_difference_death_percent = ca_mtot_death_percent - ca_ftot_death_percent
 # difference between male and female deaths. >0% means more male deaths, <0% means more female deaths
+
 
 plot_heatmap(tot_death_percent, title='Total Population')
 plot_heatmap(ca_tot_death_percent, y_axis=np.arange(
     0, 3), ages=np.arange(-1, 3, 1), title='Infants')
 plot_heatmap(ci_tot_death_percent, title='Adults')
-# plot_heatmap(ci_m_death_percent, title='Adult Males')
-# plot_heatmap(ci_f_death_percent, title='Adult Females')
-# plot_heatmap(ca_m_death_percent, y_axis=np.arange(
-#    0, 3), ages=np.arange(-1, 3, 1), title='Infant Males')
-# plot_heatmap(ca_f_death_percent, y_axis=np.arange(
-#    0, 3), ages=np.arange(-1, 3, 1), title='Infant Females')
 
 
 # better visualization through sex difference than sex alone
 plot_heatmap(ci_sex_difference_death_percent, title='Adult Sex Difference')
 plot_heatmap(ca_sex_difference_death_percent, y_axis=np.arange(
     0, 3), ages=np.arange(-1, 3, 1), title='Infant Sex Difference')
+
+
+def calc_average(counts, ages):
+    weighted_age_sum = np.zeros(counts.shape[0])
+
+    for idx, age in enumerate(ages):
+        counts_at_age = counts[:, idx]
+        weighted_age_sum = weighted_age_sum + (counts_at_age * age)
+
+    total_per_year = counts.sum(axis=1)
+    average_age = weighted_age_sum / total_per_year
+
+    return average_age
+
+
+# plot line graph
+average_tot_death = calc_average(total_death_array, age)
+ci_average_tot_death = calc_average(
+    total_death_array[:, 3:], np.arange(3, 111))
+ca_average_tot_death = calc_average(
+    total_death_array[:, 3:], np.arange(0, 3))
+
+plt.figure(figsize=(10, 5))
+plt.plot(year, average_tot_death, label='Average Deaths')
+plt.plot(year, ci_average_tot_death, label='Average Deaths Without Infants')
+plt.xticks(np.arange(1835, 2025, 20))
+plt.title("Average Age at Death vs Year")
+plt.xlabel('Year of Death')
+plt.ylabel('Average Age at Death')
+plt.legend()
+plt.tight_layout()
+plt.show()

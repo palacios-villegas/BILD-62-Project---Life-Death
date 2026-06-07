@@ -19,15 +19,6 @@ total_births = birth_data[:, 3]
 total_births = total_births[:, np.newaxis]
 
 
-# remove code if not relating to birth year of mother
-c = 0
-while c < 9288:
-    birth_data[c, 2] = float(birth_data[c+1, 2])
-    birth_data[c+85, 2] = float(birth_data[c+84, 2])
-    c = c + 86
-# print(birth_data[:90, :])
-
-
 birth_column = birth_data[:, 3]
 added_birth = np.empty([0])
 border = np.empty([0])
